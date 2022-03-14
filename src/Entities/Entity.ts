@@ -5,7 +5,7 @@
 import { Canvas } from "../Core/Canvas";
 import { ImageManager } from "../Core/ImageManager";
 import { Position, Rect } from "../Core/Utils";
-import {IMAGE_NAMES} from "../Constants";
+import { IMAGE_NAMES } from "../Constants";
 
 export abstract class Entity {
     /**

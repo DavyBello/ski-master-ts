@@ -17,7 +17,7 @@ const DISTANCE_BETWEEN_OBSTACLES: number = 50;
 /**
  * Distance away from the starting position to place obstacles so the player has some initial room to move
  */
-const STARTING_OBSTACLE_GAP: number = 100;
+const STARTING_OBSTACLE_GAP: number = 10000;
 
 /**
  * The number of starting obstacles is based upon game size, so that difficulty stays the same regardless of screen size.
