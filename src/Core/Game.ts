@@ -2,7 +2,7 @@
  * The main game class. This initializes the game as well as runs the game/render loop and initial handling of input.
  */
 
-import { GAME_CANVAS, GAME_WIDTH, GAME_HEIGHT, IMAGES } from "../Constants";
+import { GAME_CANVAS, GAME_WIDTH, GAME_HEIGHT, IMAGES, KEYS } from "../Constants";
 import { Canvas } from './Canvas';
 import { ImageManager } from "./ImageManager";
 import { Position, Rect } from './Utils';
@@ -39,6 +39,11 @@ export class Game {
      * The enemy that chases the skier
      */
     private rhino!: Rhino;
+    
+    /**
+     * The enemy that chases the skier
+     */
+    private isPaused: boolean;
 
     /**
      * Initialize the game and setup any input handling needed.
@@ -46,6 +51,7 @@ export class Game {
     constructor() {
         this.init();
         this.setupInputHandling();
+        this.isPaused = false;
     }
 
     /**
@@ -82,6 +88,10 @@ export class Game {
      * The main game loop. Clear the screen, update the game objects and then draw them.
      */
     run() {
+        if (this.isPaused) {
+            return;
+        }
+
         this.canvas.clearCanvas();
 
         this.updateGameWindow();
@@ -130,12 +140,52 @@ export class Game {
     }
 
     /**
+     * Restart the game
+     */
+    reloadGame() {
+        this.init();
+        this.load();
+    }
+
+    /**
+     * Handles the main game related
+     */
+    handleInput(inputKey: string) {
+        let handled: boolean = true;
+
+        switch (inputKey) {
+            case KEYS.RELOAD:
+                this.reloadGame();
+                break;
+            case KEYS.PAUSE:
+                this.handlePause();
+                break;
+            default:
+                handled = false;
+        }
+
+        return handled;
+    }
+
+    /**
+     * Pauses and resumes the game
+     */
+    handlePause() {
+        // don't pause if the skier is dead
+        if (!this.skier.isDead()) {
+            this.isPaused = !this.isPaused;
+            if (!this.isPaused) this.run();
+        }
+    }
+
+    /**
      * Handle keypresses and delegate to any game objects that might have key handling of their own.
      */
     handleKeyDown(event: KeyboardEvent) {
-        let handled: boolean = this.skier.handleInput(event.key);
+        const gameHandled = this.handleInput(event.key);
+        const skierHandled = !this.isPaused && this.skier.handleInput(event.key);
 
-        if(handled) {
+        if (gameHandled || skierHandled) {
             event.preventDefault();
         }
     }
