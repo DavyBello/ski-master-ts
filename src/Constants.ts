@@ -40,6 +40,12 @@ export enum IMAGE_NAMES {
     JUMP_RAMP = 'jumpRamp',
 };
 
+export enum COLLISION_OUTCOME {
+    CRASH = 'crash',
+    JUMP = 'jump',
+    IGNORE = 'ignore'
+}
+
 export const IMAGES: iImage[] = [
     { name: IMAGE_NAMES.SKIER_CRASH, url: 'img/skier_crash.png' },
     { name: IMAGE_NAMES.SKIER_LEFT, url: 'img/skier_left.png' },

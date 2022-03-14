@@ -3,7 +3,7 @@
  * angles, and crashes into obstacles they run into. If caught by the rhino, the skier will get eaten and die.
  */
 
-import { IMAGE_NAMES, DIAGONAL_SPEED_REDUCER, KEYS } from "../Constants";
+import { IMAGE_NAMES, DIAGONAL_SPEED_REDUCER, KEYS, COLLISION_OUTCOME } from "../Constants";
 import { AnimatedEntity } from "./AnimatedEntity";
 import { Canvas } from "../Core/Canvas";
 import { ImageManager } from "../Core/ImageManager";
@@ -375,7 +375,7 @@ export class Skier extends AnimatedEntity {
             return;
         }
 
-        const collision = this.obstacleManager.getObstacles().find((obstacle: Obstacle): boolean => {
+        const obstacle = this.obstacleManager.getObstacles().find((obstacle: Obstacle): boolean => {
             const obstacleBounds = obstacle.getBounds();
             if(!obstacleBounds) {
                 return false;
@@ -384,8 +384,26 @@ export class Skier extends AnimatedEntity {
             return intersectTwoRects(skierBounds, obstacleBounds);
         });
 
-        if(collision) {
-            this.crash();
+        if (!obstacle) return;
+
+        if (this.isJumping()) this.handleCollisionOutcome(obstacle.onAirborneCollision);
+        if (this.isSkiing()) this.handleCollisionOutcome(obstacle.onCollison);
+    }
+
+    /**
+     * Perform the appropriate action based on skier state.
+     */
+    handleCollisionOutcome(outcome: COLLISION_OUTCOME) {
+        switch (outcome) {
+            case COLLISION_OUTCOME.CRASH:
+                this.crash();
+                break;
+            case COLLISION_OUTCOME.JUMP:
+                this.jump();
+                break;
+            case COLLISION_OUTCOME.IGNORE:
+                // fallthrough
+            default: 
         }
     }
 
