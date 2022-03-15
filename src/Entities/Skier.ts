@@ -334,8 +334,7 @@ export class Skier extends AnimatedEntity {
     }
 
     /**
-     * Make the skier jump. If they're crashed don't do anything to require them to move left or right
-     * to escape an obstacle before skiing down again.
+     * Make the skier jump. If they're crashed or already jumping, do nothing
      */
     jump() {
         if(this.isCrashed() || this.isJumping()) {
@@ -369,7 +368,6 @@ export class Skier extends AnimatedEntity {
      * Go through all the obstacles in the game and see if the skier collides with any of them. If so, crash the skier.
      */
     checkIfHitObstacle() {
-        // TODO: add jump interaction
         const skierBounds = this.getBounds();
         if(!skierBounds) {
             return;
@@ -387,7 +385,7 @@ export class Skier extends AnimatedEntity {
         if (!obstacle) return;
 
         if (this.isJumping()) this.handleCollisionOutcome(obstacle.onAirborneCollision);
-        if (this.isSkiing()) this.handleCollisionOutcome(obstacle.onCollison);
+        if (this.isSkiing()) this.handleCollisionOutcome(obstacle.onCollision);
     }
 
     /**
@@ -435,7 +433,6 @@ export class Skier extends AnimatedEntity {
             return;
         }
         this.state = STATES.STATE_SKIING;
-        this.speed = STARTING_SPEED;
     }
 
     /**

@@ -36,7 +36,7 @@ export class Obstacle extends Entity {
     /**
      * What happens when the skier collides while grounded. defaults to crash
      */
-    onCollison: COLLISION_OUTCOME;
+    onCollision: COLLISION_OUTCOME;
 
     /**
      * Initialize an obstacle and make it a random type.
@@ -45,10 +45,10 @@ export class Obstacle extends Entity {
         super(x, y, imageManager, canvas);
 
         const typeIdx = randomInt(0, OBSTACLE_TYPES.length - 1);
-        const [imageName, onAirborneCollision, onCollison] = OBSTACLE_TYPES[typeIdx];
+        const [imageName, onAirborneCollision, onCollision] = OBSTACLE_TYPES[typeIdx];
         this.imageName = imageName;
         this.onAirborneCollision = onAirborneCollision || COLLISION_OUTCOME.CRASH;
-        this.onCollison = onCollison || COLLISION_OUTCOME.CRASH;
+        this.onCollision = onCollision || COLLISION_OUTCOME.CRASH;
     }
 
     /**
