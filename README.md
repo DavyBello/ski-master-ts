@@ -53,9 +53,57 @@ it better! Your solution can only gain from having a better foundation.
 
   Update this README file with your comments about your work.
   * What did you do and, more importantly, why you built it the way you did.
+  ```
+  I made 2 major changes to implement the new functionality
+  
+  1. Created an AnimatedEntity class
+
+  This class helps abstract the animation logic.
+  It is used by both the Rhino and Skier.
+  It avoids duplication of code across those classes.
+
+  2. Made the obstacles define what happens on collision with the skier
+
+  For this version of the game, The skier will either interact with an obstacle while jumping or while grounded.
+  In both of those cases, there are 3 possible outcomes:
+  * The Skier will crash (e.g colliding with a tree),
+  * The Skier will ignore the obstacle (e.g colliding with a rock while jumping),
+  * The skier will jump (e.g colliding with a ramp while grounded)
+
+  To implement this, I changed the OBSTACLES_TYPES constant from an array of image names to a tuple that defines 3 properties.
+  
+  the image name, jumping collision outcome and skiing collision outcome.
+
+  In cases where the collision outcome of the obstacle is not specified, The game will default to a crash.
+
+  Whenever there is a collision, the game checks the skier state and triggers the appropriate collision outcome for the obstacle.
+  ```
   * Are there any known bugs?
+  ```
+  Did not encounter any bugs during my testing
+  ```
   * Did you do any bonus items?
+  ```
+  1. Implemented Pause functionality (ESC)
+  2. Implemented Reload functionality (R)
+  3. Deployed to cloud ()
+  ```
   * Tell us how to run it, either locally or through a cloud provider.
+  ```
+  * To run it locally, install dependencies - npm install
+  * Run the game - npm run dev
+  ```
+  Alternatively,
+  ```
+  * Go to ()
+  ```
+  * How to play
+  ```
+  * Use the arrow keys to turn the skier.
+  * Use the SpaceBar key to jump over obstacles.
+  * Press R to reload the game at any time.
+  * Press ESC to pause and resume the game while the skier is alive.
+  ```
   
 * **Be original:**
   
