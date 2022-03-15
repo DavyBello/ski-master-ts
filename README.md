@@ -86,7 +86,7 @@ it better! Your solution can only gain from having a better foundation.
   ```
   1. Implemented Pause functionality (ESC)
   2. Implemented Reload functionality (R)
-  3. Deployed to cloud ()
+  3. Deployed to cloud (https://ski-master.netlify.app)
   ```
   * Tell us how to run it, either locally or through a cloud provider.
   ```
@@ -95,7 +95,7 @@ it better! Your solution can only gain from having a better foundation.
   ```
   Alternatively,
   ```
-  * Go to ()
+  * Go to (https://ski-master.netlify.app/)
   ```
   * How to play
   ```
